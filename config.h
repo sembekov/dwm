@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx       = 3;   /* border pixel of windows */
+static const unsigned int borderpx       = 2;   /* border pixel of windows */
 //static const unsigned int borderpx       = 2;   /* border pixel of windows */
 //static const unsigned int borderpx       = 2;   /* border pixel of windows */
 static const unsigned int snap           = 32;  /* snap pixel */
@@ -26,12 +26,16 @@ static const int statusmon               = 'A';
 static int tagindicatortype              = INDICATOR_TOP_LEFT_SQUARE;
 static int tiledindicatortype            = INDICATOR_NONE;
 static int floatindicatortype            = INDICATOR_TOP_LEFT_SQUARE;
-static const char *fonts[]               = { "Hack Nerd Font:size=10" };
-static const char dmenufont[]            = "Hack Nerd Font:size=10";
+// static const char *fonts[]               = { "Hack Nerd Font:size=10" };
+// static const char dmenufont[]            = "Hack Nerd Font:size=10";
 
-//static const char *fonts[]               = { "Hack Nerd Font:size=13" };
-//static const char dmenufont[]            = "Hack Nerd Font:size=13";
-#include "/home/akira/build/dwm/templates/japanese-colors.h"
+static const char *fonts[]               = { "Hack Nerd Font:size=13" };
+static const char dmenufont[]            = "Hack Nerd Font:size=13";
+
+//#include "/home/akira/build/dwm/templates/japanese-colors.h"
+//#include "/home/akira/build/dwm/templates/wallpaper-white-colors.h"
+#include "/home/akira/build/dwm/templates/test.h"
+//#include "/home/akira/build/dwm/templates/winter-pink-colors.h"
 
 static char c000000[]                    = "#000000"; // placeholder value
 
@@ -151,11 +155,20 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 
 
+#include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "$",      tile },    /* first entry is default */
+	{ "0",      NULL },    /* no layout function means floating behavior */
+	{ "",      monocle },
+ 	{ "[@]",      spiral },
+ 	{ "[\\]",      dwindle },
+
+    /*
+	{ "[]=",      tile },    
+	{ "><>",      NULL },   
 	{ "[M]",      monocle },
+    */
 };
 
 
@@ -188,7 +201,8 @@ static const char *termcmd[]  = { "kitty", NULL };
 static const char *roficmd[] = { "rofi", "-show", "drun", "-show-icons", NULL };
 static const char *flamcmd[]  = { "flameshot", "gui", NULL };
 static const char *flamfcmd[]  = { "flameshot", "full" , "-c", "-p", "~/Pictures/screenshots", NULL };
-static const char *filemg[]  = { "kitty", "ranger", NULL };
+//static const char *filemg[]  = { "kitty", "ranger", NULL };
+static const char *filemg[]  = { "nemo", NULL };
 static const char *browser[]  = { "librewolf", NULL };
 static const char *startmus[]  = { "mocp", "-p", NULL };
 static const char *stopmus[]  = { "mocp", "-s", NULL };
@@ -221,6 +235,13 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_t,          setlayout,              {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,          setlayout,              {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,          setlayout,              {.v = &layouts[2]} },
+
+    // new patch
+	{ MODKEY,						XK_s,      setlayout,      {.v = &layouts[3]} }, /* spiral */
+	{ MODKEY|ShiftMask,				XK_d,      setlayout,      {.v = &layouts[4]} }, /* dwindle */
+	//{ MODKEY|ControlMask,           XK_space,  focusmaster,    {0} },
+	//{ MODKEY|ShiftMask,             XK_s,      togglesticky,   {0} },
+
 	{ MODKEY,                       XK_space,      setlayout,              {0} },
 	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
 	{ MODKEY,                       XK_comma,      focusmon,               {.i = -1 } },
@@ -230,21 +251,21 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_c,          quit,                   {0} },
 
 	{ MODKEY|Mod1Mask,              XK_u,          incrgaps,               {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_u,          incrgaps,               {.i = -1 } },
+	{ MODKEY|Mod1Mask|ControlMask,  XK_u,          incrgaps,               {.i = -1 } },
 	{ MODKEY|Mod1Mask,              XK_i,          incrigaps,              {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_i,          incrigaps,              {.i = -1 } },
+	{ MODKEY|Mod1Mask|ControlMask,    XK_i,          incrigaps,              {.i = -1 } },
 	{ MODKEY|Mod1Mask,              XK_o,          incrogaps,              {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_o,          incrogaps,              {.i = -1 } },
+	{ MODKEY|Mod1Mask|ControlMask,    XK_o,          incrogaps,              {.i = -1 } },
 	{ MODKEY|Mod1Mask,              XK_6,          incrihgaps,             {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_6,          incrihgaps,             {.i = -1 } },
+	{ MODKEY|Mod1Mask|ControlMask,    XK_6,          incrihgaps,             {.i = -1 } },
 	{ MODKEY|Mod1Mask,              XK_7,          incrivgaps,             {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_7,          incrivgaps,             {.i = -1 } },
+	{ MODKEY|Mod1Mask|ControlMask,    XK_7,          incrivgaps,             {.i = -1 } },
 	{ MODKEY|Mod1Mask,              XK_8,          incrohgaps,             {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_8,          incrohgaps,             {.i = -1 } },
+	{ MODKEY|Mod1Mask|ControlMask,    XK_8,          incrohgaps,             {.i = -1 } },
 	{ MODKEY|Mod1Mask,              XK_9,          incrovgaps,             {.i = +1 } },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_9,          incrovgaps,             {.i = -1 } },
+	{ MODKEY|Mod1Mask|ControlMask,    XK_9,          incrovgaps,             {.i = -1 } },
 	{ MODKEY|Mod1Mask,              XK_0,          togglegaps,             {0} },
-	{ MODKEY|Mod1Mask|ShiftMask,    XK_0,          defaultgaps,            {0} },
+	{ MODKEY|Mod1Mask|ControlMask,    XK_0,          defaultgaps,            {0} },
 	{ MODKEY,                       XK_Tab,        view,                   {0} },
 	{ MODKEY|ControlMask,           XK_z,          showhideclient,         {0} },
 	{ MODKEY,                       XK_0,          view,                   {.ui = ~0 } },
